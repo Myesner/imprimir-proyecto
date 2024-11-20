@@ -1,26 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Impresión Automática</title>
-    <script>
-        // Función para activar la impresión al cargar la página
-        window.onload = function() {
-            window.print(); // Activa el diálogo de impresión del navegador
-        };
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibo Acopio de Leche</title>
     <style>
-        
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        h1 {
-            text-align: center;
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            border: 1px solid #000;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        p {
-            margin-top: 20px;
+        .header {
             text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            position: absolute;
+            left: 6%; /* Ajusta este valor para mover el logo más o menos a la izquierda */
+            top: 3%;
+            width: 80px;
+            height: auto;
+        }
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .content-table td {
+            padding: 10px;
+            vertical-align: top;
+        }
+        .content-table .left {
+            text-align: left;
+            width: 50%;
+        }
+        .content-table .right {
+            text-align: right;
+            width: 50%;
+        }
+        .signature {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .signature div {
+            text-align: center;
+            width: 30%;
+        }
+        .signature div::after {
+            content: "";
+            display: block;
+            margin-top: 10px;
+            border-top: 1px solid #000;
         }
     </style>
 </head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="logo.png" alt="Logo">
+            <h2>RECIBO ACOPIO DE LECHE</h2>
+            <p>Desarrollo Lácteos de Acoyapa S.A</p>
+        </div>
+        <table class="content-table">
+            <tr>
+                <td class="left"><strong>No:</strong> <span id="idProduccion">____________</span></td>
+                <td class="right"><strong>Vehículo:</strong> <span id="vehiculo">____________</span></td>
+            </tr>
+            <tr>
+                <td class="left"><strong>Fecha:</strong> <span id="fecha">____________</span></td>
+                <td class="right"><strong>Total litros:</strong> <span id="volumenLeche">____________</span></td>
+            </tr>
+            <tr>
+                <td class="left"><strong>Recibimos de:</strong> <span id="recibeDe">____________</span></td>
+                <td class="right"><strong>Temperatura:</strong> <span id="temperatura">____________</span></td>
+            </tr>
+            <tr>
+                <td class="left"><strong>Hora de entrega:</strong> <span id="horaEntrega">____________</span></td>
+                <td class="right"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><strong>Observaciones:</strong> <span id="observaciones">____________</span></td>
+            </tr>
+        </table>
+        <div class="signature">
+            <div>Entregado por</div>
+            <div>Recibido por</div>
+        </div>
+    </div>
+    <script>
+        // Obtener datos desde la URL
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById("idProduccion").innerText = params.get("idProduccion") || "____________";
+        document.getElementById("fecha").innerText = params.get("fecha") || "____________";
+        document.getElementById("recibeDe").innerText = params.get("recibeDe") || "____________";
+        document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";
+        document.getElementById("horaEntrega").innerText = params.get("horaEntrega") || "____________";
+        document.getElementById("vehiculo").innerText = params.get("vehiculo") || "____________";
+        document.getElementById("volumenLeche").innerText = params.get("volumenLeche") || "____________";
+        document.getElementById("temperatura").innerText = params.get("temperatura") || "____________";
+         // Imprimir automáticamente al cargar la página
+         window.onload = function() {
+            window.print(); // Abre el cuadro de diálogo de impresión del navegador
+        };
+    </script>
+</body>
 </html>
+
+
