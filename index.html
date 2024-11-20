@@ -94,6 +94,11 @@
         </div>
     </div>
     <script>
+        
+         // Imprimir automáticamente al cargar la página
+         window.onload = function() {
+            window.print(); // Abre el cuadro de diálogo de impresión del navegador
+        };
         // Obtener datos desde la URL
         const params = new URLSearchParams(window.location.search);
         document.getElementById("idProduccion").innerText = params.get("idProduccion") || "____________";
@@ -109,10 +114,6 @@
         document.getElementById("entregadoPor").innerText = params.get("entregadoPor") || "____________";
         document.getElementById("recibidoPor").innerText = params.get("recibidoPor") || "____________";
 
-         // Imprimir automáticamente al cargar la página
-         window.onload = function() {
-            window.print(); // Abre el cuadro de diálogo de impresión del navegador
-        };
     </script>
 </body>
 </html>
