@@ -82,7 +82,7 @@
             </tr>
             <tr>
                 <td class="left"><strong>Hora de entrega:</strong> <span id="horaEntrega">____________</span></td>
-                <td class="right"></td>
+                <td class="right"><strong>Hora de descargue:</strong> <span id="horaDescargue">____________</span></td>
             </tr>
             <tr>
                 <td colspan="2"><strong>Observaciones:</strong> <span id="observaciones">____________</span></td>
@@ -94,7 +94,6 @@
         </div>
     </div>
     <script>
-        
          // Imprimir automáticamente al cargar la página
          window.onload = function() {
             window.print(); // Abre el cuadro de diálogo de impresión del navegador
@@ -107,13 +106,11 @@
         document.getElementById("vehiculo").innerText = params.get("vehiculo") || "____________";
         document.getElementById("volumenLeche").innerText = params.get("volumenLeche") || "____________";
         document.getElementById("horaEntrega").innerText = params.get("horaEntrega") || "____________";
+        document.getElementById("horaDescargue").innerText = params.get("horaDescargue") || "____________";
         document.getElementById("temperatura").innerText = params.get("temperatura") || "____________";
         document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";
-        document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";
-        document.getElementById("horaEntrega").innerText = params.get("horaEntrega") || "____________";
         document.getElementById("entregadoPor").innerText = params.get("entregadoPor") || "____________";
         document.getElementById("recibidoPor").innerText = params.get("recibidoPor") || "____________";
-
     </script>
 </body>
 </html>
