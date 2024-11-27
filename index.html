@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recibo Acopio de Leche</title>
+    <title>DELACASA - Recibo de leche</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,7 +22,7 @@
         }
         .header img {
             position: absolute;
-            left: 6%;
+            left: 6%; /* Ajusta este valor para mover el logo más o menos a la izquierda */
             top: 3%;
             width: 80px;
             height: auto;
@@ -58,6 +58,18 @@
             margin-top: 10px;
             border-top: 1px solid #000;
         }
+        .subtitle {
+            font-size: 18px;
+            margin-top: -10px;
+            color: #555;
+        }
+        .header-code {
+            position: absolute;
+            top: 3%;
+            right: 6%;
+            text-align: right;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -65,11 +77,11 @@
         <div class="header">
             <img src="logo.png" alt="Logo">
             <h2>DELACASA</h2>
-            <p>Desarrollo Lácteos de Acoyapa S.A</p>
-            <p style="position: absolute; top: 3%; right: 5%;">
-                <strong>Cod: 023</strong><br>
-                <strong>Versión: 001</strong>
-            </p>
+            <p class="subtitle">Recibo de leche</p>
+            <div class="header-code">
+                <p>Código: 001</p>
+                <p>Versión: 001</p>
+            </div>
         </div>
         <table class="content-table">
             <tr>
@@ -93,19 +105,19 @@
             </tr>
         </table>
         <div class="signature">
-            <div id="entregadoPor">Entregado por</div>
-            <div id="recibidoPor">Recibido por</div>
+            <div id="entregadoPor">ENTREGADO POR</div>
+            <div id="recibidoPor">RECIBIDO POR</div>
         </div>
     </div>
     <script>
+         // Imprimir automáticamente al cargar la página
+         window.onload = function() {
+            window.print(); // Abre el cuadro de diálogo de impresión del navegador
+        };
         // Obtener datos desde la URL
         const params = new URLSearchParams(window.location.search);
-        const fecha = params.get("fecha") || "SIN-FECHA";
-        const idProduccion = params.get("idProduccion") || "SIN-ID";
-
-        // Insertar datos en el HTML
-        document.getElementById("idProduccion").innerText = idProduccion;
-        document.getElementById("fecha").innerText = fecha;
+        document.getElementById("idProduccion").innerText = params.get("idProduccion") || "SIN-ID";
+        document.getElementById("fecha").innerText = params.get("fecha") || "SIN-FECHA";
         document.getElementById("recibeDe").innerText = params.get("recibeDe") || "____________";
         document.getElementById("vehiculo").innerText = params.get("vehiculo") || "____________";
         document.getElementById("volumenLeche").innerText = params.get("volumenLeche") || "____________";
@@ -115,17 +127,7 @@
         document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";
         document.getElementById("entregadoPor").innerText = params.get("entregadoPor") || "____________";
         document.getElementById("recibidoPor").innerText = params.get("recibidoPor") || "____________";
-
-        // Personalizar el nombre del archivo PDF
-        document.title = `${fecha}-${idProduccion}`;
-
-        // Imprimir automáticamente al cargar la página
-        window.onload = function() {
-            window.print(); // Muestra el cuadro de diálogo de impresión/guardar como PDF
-        };
     </script>
 </body>
 </html>
-
-
 
