@@ -44,30 +44,39 @@
             width: 50%;
         }
         .signature {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px; /* Ajusta la distancia superior */
-        padding: 0 20px; /* Agrega un margen interno para mover hacia los lados */
-        }
-        .signature div {
-            text-align: center;
-            width: 30%;
-            position: relative;
-        }
-        .signature div::after {
-            content: "";
-            display: block;
-            margin-top: 12px; /* Ajusta la distancia entre el texto y la línea */
-            border-top: 1px solid #000;
-        }
-        .signature div span {
-            position: absolute;
-            top: 14px; /* Ajusta para subir el texto sobre la línea */
-            font-size: 14px;
-            width: 100%; /* Ajusta el ancho del contenedor del texto */
-            text-align: center;
-            margin-left: -100px; /* Ajusta para mover más a la izquierda */
-        }
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.signature-block {
+    text-align: center;
+    width: 30%;
+    position: relative;
+}
+
+.signature-block .line-small {
+    border-top: 1px solid #000;
+    margin: 5px 0; /* Espaciado entre líneas */
+    width: 50%; /* Línea pequeña centrada */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signature-block .line {
+    border-top: 1px solid #000;
+    margin: 10px 0; /* Espaciado entre la línea grande y el texto */
+    width: 100%; /* Línea grande */
+}
+
+.signature-block span {
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 5px; /* Separación entre la línea grande y el texto */
+}
+
+
         .subtitle {
             font-size: 18px;
             margin-top: -10px;
@@ -84,7 +93,8 @@
             right: 6%;
             text-align: right;
             font-size: 12px;
-        }
+        }  
+
     </style>
 </head>
 <body>
@@ -121,14 +131,18 @@
             </tr>
         </table>
         <div class="signature">
-            <div>
-                <span>ENTREGADO POR</span>
+            <div class="signature-block">
+                <div class="line-small" id="entregadoPor"></div> <!-- Línea pequeña con ID -->
+                <div class="line"></div> <!-- Línea grande -->
+                <span>ENTREGADO POR</span> <!-- Texto -->
             </div>
-            <div>
-                <span>RECIBIDO POR</span>
+            <div class="signature-block">
+                <div class="line-small" id="recibidoPor"></div> <!-- Línea pequeña con ID -->
+                <div class="line"></div> <!-- Línea grande -->
+                <span>RECIBIDO POR</span> <!-- Texto -->
             </div>
         </div>
-    </div>
+        
     <script>
         const params = new URLSearchParams(window.location.search);
         const idProduccion = params.get("idProduccion") || "SIN-ID";
@@ -142,7 +156,10 @@
         document.getElementById("horaEntrega").innerText = params.get("horaEntrega") || "____________";
         document.getElementById("horaDescargue").innerText = params.get("horaDescargue") || "____________";
         document.getElementById("temperatura").innerText = params.get("temperatura") || "____________";
-        document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";
+        document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";// Actualizar el contenido de las líneas pequeñas dinámicamente
+        document.getElementById("entregadoPor").innerText = params.get("entregadoPor") || "____________";
+        document.getElementById("recibidoPor").innerText = params.get("recibidoPor") || "____________";
+
 
         document.title = `Recibo de leche - ${fecha}-${idProduccion}`;
         window.onload = function() {
