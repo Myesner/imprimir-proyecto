@@ -59,9 +59,9 @@
             margin-top: 20px;
             border-top: 1px solid #000;
         }
-        .signature span {
+        .signature div span {
             position: absolute;
-            bottom: -20px; /* Ajustar para colocar texto debajo */
+            top: 30px; /* Ajustar para centrar */
             font-size: 14px;
             width: 100%;
             text-align: center;
@@ -142,10 +142,7 @@
         document.getElementById("temperatura").innerText = params.get("temperatura") || "____________";
         document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";
 
-        // Configurar título del PDF
         document.title = `Recibo de leche - ${fecha}-${idProduccion}`;
-
-        // Imprimir automáticamente
         window.onload = function() {
             window.print();
         };
