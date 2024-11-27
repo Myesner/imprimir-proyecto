@@ -19,6 +19,7 @@
         .header {
             text-align: center;
             margin-bottom: 20px;
+            position: relative;
         }
         .header img {
             position: absolute;
@@ -26,6 +27,24 @@
             top: 3%;
             width: 80px;
             height: auto;
+        }
+        .header-info {
+            position: absolute;
+            top: 3%;
+            right: 6%;
+            text-align: right;
+            font-size: 12px;
+        }
+        .header-info p {
+            margin: 2px 0;
+        }
+        #numeroReciboContainer {
+            position: absolute;
+            top: -30px; /* Ajusta este valor para mover el campo más arriba */
+            right: 6%;
+            text-align: right;
+            font-size: 14px;
+            font-weight: bold;
         }
         .content-table {
             width: 100%;
@@ -44,31 +63,26 @@
             width: 50%;
         }
         .signature {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-}
-
-.signature-block {
-    text-align: center;
-    width: 30%;
-    position: relative;
-}
-
-.signature-block .line {
-    border-top: 1px solid #000;
-    margin: 10px 0; /* Espaciado entre la línea grande y el texto */
-    width: 100%; /* Línea grande */
-}
-
-.signature-block span {
-    display: block;
-    font-size: 14px;
-    text-align: center;
-    margin-top: 5px; /* Separación entre la línea grande y el texto */
-}
-
-
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .signature-block {
+            text-align: center;
+            width: 30%;
+            position: relative;
+        }
+        .signature-block .line {
+            border-top: 1px solid #000;
+            margin: 10px 0;
+            width: 100%;
+        }
+        .signature-block span {
+            display: block;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 5px;
+        }
         .subtitle {
             font-size: 18px;
             margin-top: -10px;
@@ -79,14 +93,6 @@
             margin-top: -5px;
             color: #333;
         }
-        .header-code {
-            position: absolute;
-            top: 3%;
-            right: 6%;
-            text-align: right;
-            font-size: 12px;
-        }  
-
     </style>
 </head>
 <body>
@@ -96,7 +102,10 @@
             <h2>DELACASA</h2>
             <p class="subtitle">Recibo de leche</p>
             <p class="company">Desarrollo Lácteos de Acoyapa S.A</p>
-            <div class="header-code">
+            <div id="numeroReciboContainer">
+                <p>No. de Recibo: <span id="numeroRecibo">____________</span></p>
+            </div>
+            <div class="header-info">
                 <p>Código: 001</p>
                 <p>Versión: 001</p>
             </div>
@@ -124,23 +133,38 @@
         </table>
         <div class="signature">
             <div class="signature-block">
-                <div id="entregadoPor"></div> <!-- Línea pequeña con ID -->
-                <div class="line"></div> <!-- Línea grande -->
-                <span>ENTREGADO POR</span> <!-- Texto -->
+                <div id="entregadoPor"></div>
+                <div class="line"></div>
+                <span>ENTREGADO POR</span>
             </div>
             <div class="signature-block">
-                <div id="recibidoPor"></div> <!-- Línea pequeña con ID -->
-                <div class="line"></div> <!-- Línea grande -->
-                <span>RECIBIDO POR</span> <!-- Texto -->
+                <div id="recibidoPor"></div>
+                <div class="line"></div>
+                <span>RECIBIDO POR</span>
             </div>
         </div>
-        
+    </div>
     <script>
         const params = new URLSearchParams(window.location.search);
         const idProduccion = params.get("idProduccion") || "SIN-ID";
         const fecha = params.get("fecha") || "SIN-FECHA";
 
+        // Obtener número de recibo desde localStorage
+        let numeroRecibo = localStorage.getItem("numeroRecibo");
+        if (!numeroRecibo) {
+            numeroRecibo = 1;
+        } else {
+            numeroRecibo = parseInt(numeroRecibo);
+        }
+
+        // Mostrar el número de recibo e ID Producción
         document.getElementById("idProduccion").innerText = idProduccion;
+        document.getElementById("numeroRecibo").innerText = numeroRecibo;
+
+        // Incrementar y guardar el número de recibo en localStorage
+        localStorage.setItem("numeroRecibo", numeroRecibo + 1);
+
+        // Mostrar otros datos
         document.getElementById("fecha").innerText = fecha;
         document.getElementById("recibeDe").innerText = params.get("recibeDe") || "____________";
         document.getElementById("vehiculo").innerText = params.get("vehiculo") || "____________";
@@ -148,13 +172,15 @@
         document.getElementById("horaEntrega").innerText = params.get("horaEntrega") || "____________";
         document.getElementById("horaDescargue").innerText = params.get("horaDescargue") || "____________";
         document.getElementById("temperatura").innerText = params.get("temperatura") || "____________";
-        document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";// Actualizar el contenido de las líneas pequeñas dinámicamente
+        document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";
         document.getElementById("entregadoPor").innerText = params.get("entregadoPor") || "____________";
         document.getElementById("recibidoPor").innerText = params.get("recibidoPor") || "____________";
 
+        // Configurar el título del documento para el PDF
+        document.title = `Recibo de leche - ${fecha}-${idProduccion}-${numeroRecibo}`;
 
-        document.title = `Recibo de leche - ${fecha}-${idProduccion}`;
-        window.onload = function() {
+        // Imprimir automáticamente al cargar la página
+        window.onload = function () {
             window.print();
         };
     </script>
