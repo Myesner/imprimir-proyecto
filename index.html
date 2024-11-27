@@ -51,12 +51,20 @@
         .signature div {
             text-align: center;
             width: 30%;
+            position: relative;
         }
         .signature div::after {
             content: "";
             display: block;
-            margin-top: 10px;
+            margin-top: 20px;
             border-top: 1px solid #000;
+        }
+        .signature span {
+            position: absolute;
+            bottom: -20px; /* Ajustar para colocar texto debajo */
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
         }
         .subtitle {
             font-size: 18px;
@@ -111,12 +119,15 @@
             </tr>
         </table>
         <div class="signature">
-            <div id="entregadoPor">ENTREGADO POR</div>
-            <div id="recibidoPor">RECIBIDO POR</div>
+            <div>
+                <span>ENTREGADO POR</span>
+            </div>
+            <div>
+                <span>RECIBIDO POR</span>
+            </div>
         </div>
     </div>
     <script>
-        // Obtener datos desde la URL
         const params = new URLSearchParams(window.location.search);
         const idProduccion = params.get("idProduccion") || "SIN-ID";
         const fecha = params.get("fecha") || "SIN-FECHA";
@@ -130,15 +141,13 @@
         document.getElementById("horaDescargue").innerText = params.get("horaDescargue") || "____________";
         document.getElementById("temperatura").innerText = params.get("temperatura") || "____________";
         document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";
-        document.getElementById("entregadoPor").innerText = params.get("entregadoPor") || "____________";
-        document.getElementById("recibidoPor").innerText = params.get("recibidoPor") || "____________";
 
-        // Configurar el nombre del archivo para el guardado en PDF
+        // Configurar título del PDF
         document.title = `Recibo de leche - ${fecha}-${idProduccion}`;
 
-        // Imprimir automáticamente al cargar la página
+        // Imprimir automáticamente
         window.onload = function() {
-            const printPromise = window.print();
+            window.print();
         };
     </script>
 </body>
