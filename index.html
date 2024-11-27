@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DELACASA</title>
+    <title>Recibo Acopio de Leche</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,7 +15,6 @@
             border: 1px solid #000;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            position: relative;
         }
         .header {
             text-align: center;
@@ -23,18 +22,10 @@
         }
         .header img {
             position: absolute;
-            left: 6%; /* Ajusta este valor para mover el logo más o menos a la izquierda */
+            left: 6%;
             top: 3%;
             width: 80px;
             height: auto;
-        }
-        .code-version {
-            position: absolute;
-            top: 3%;
-            right: 6%;
-            text-align: right;
-            font-size: 12px;
-            line-height: 1.5;
         }
         .content-table {
             width: 100%;
@@ -75,10 +66,10 @@
             <img src="logo.png" alt="Logo">
             <h2>DELACASA</h2>
             <p>Desarrollo Lácteos de Acoyapa S.A</p>
-        </div>
-        <div class="code-version">
-            Cod: 023<br>
-            Versión: 001
+            <p style="position: absolute; top: 3%; right: 5%;">
+                <strong>Cod: 023</strong><br>
+                <strong>Versión: 001</strong>
+            </p>
         </div>
         <table class="content-table">
             <tr>
@@ -109,8 +100,12 @@
     <script>
         // Obtener datos desde la URL
         const params = new URLSearchParams(window.location.search);
-        document.getElementById("idProduccion").innerText = params.get("idProduccion") || "____________";
-        document.getElementById("fecha").innerText = params.get("fecha") || "____________";
+        const fecha = params.get("fecha") || "SIN-FECHA";
+        const idProduccion = params.get("idProduccion") || "SIN-ID";
+
+        // Insertar datos en el HTML
+        document.getElementById("idProduccion").innerText = idProduccion;
+        document.getElementById("fecha").innerText = fecha;
         document.getElementById("recibeDe").innerText = params.get("recibeDe") || "____________";
         document.getElementById("vehiculo").innerText = params.get("vehiculo") || "____________";
         document.getElementById("volumenLeche").innerText = params.get("volumenLeche") || "____________";
@@ -121,18 +116,12 @@
         document.getElementById("entregadoPor").innerText = params.get("entregadoPor") || "____________";
         document.getElementById("recibidoPor").innerText = params.get("recibidoPor") || "____________";
 
-        // Automáticamente guardar el PDF con el nombre "Fecha-IDProduccion"
-        window.onload = function() {
-            const fecha = params.get("fecha") || "sin_fecha";
-            const idProduccion = params.get("idProduccion") || "sin_id";
-            const nombreArchivo = `${fecha}-${idProduccion}.pdf`;
+        // Personalizar el nombre del archivo PDF
+        document.title = `${fecha}-${idProduccion}`;
 
-            // Configuración para guardar como PDF
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(document.documentElement.innerHTML);
-            printWindow.document.title = nombreArchivo;
-            printWindow.print();
-            printWindow.close();
+        // Imprimir automáticamente al cargar la página
+        window.onload = function() {
+            window.print(); // Muestra el cuadro de diálogo de impresión/guardar como PDF
         };
     </script>
 </body>
