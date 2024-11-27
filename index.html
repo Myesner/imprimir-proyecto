@@ -15,6 +15,7 @@
             border: 1px solid #000;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
         .header {
             text-align: center;
@@ -26,6 +27,14 @@
             top: 3%;
             width: 80px;
             height: auto;
+        }
+        .code-version {
+            position: absolute;
+            top: 3%;
+            right: 6%;
+            text-align: right;
+            font-size: 12px;
+            line-height: 1.5;
         }
         .content-table {
             width: 100%;
@@ -66,6 +75,10 @@
             <img src="logo.png" alt="Logo">
             <h2>DELACASA</h2>
             <p>Desarrollo Lácteos de Acoyapa S.A</p>
+        </div>
+        <div class="code-version">
+            Cod: 023<br>
+            Versión: 001
         </div>
         <table class="content-table">
             <tr>
@@ -108,11 +121,18 @@
         document.getElementById("entregadoPor").innerText = params.get("entregadoPor") || "____________";
         document.getElementById("recibidoPor").innerText = params.get("recibidoPor") || "____________";
 
-        // Función para guardar como PDF con el nombre del idProduccion
+        // Automáticamente guardar el PDF con el nombre "Fecha-IDProduccion"
         window.onload = function() {
-            const idProduccion = params.get("idProduccion") || "Recibo";
-            document.title = idProduccion; // Cambia el título de la página (usado para el nombre del archivo PDF)
-            window.print();
+            const fecha = params.get("fecha") || "sin_fecha";
+            const idProduccion = params.get("idProduccion") || "sin_id";
+            const nombreArchivo = `${fecha}-${idProduccion}.pdf`;
+
+            // Configuración para guardar como PDF
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(document.documentElement.innerHTML);
+            printWindow.document.title = nombreArchivo;
+            printWindow.print();
+            printWindow.close();
         };
     </script>
 </body>
