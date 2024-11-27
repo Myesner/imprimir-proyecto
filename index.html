@@ -44,27 +44,28 @@
             width: 50%;
         }
         .signature {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px; /* Ajusta la distancia superior */
+        padding: 0 20px; /* Agrega un margen interno para mover hacia los lados */
         }
-        .signature div {
-            text-align: left; /* Cambiado para alinear a la izquierda */
-            width: 25%; /* Reducido para ajustar el espacio */
-            position: relative;
+       .signature div {
+        text-align: center;
+        width: 30%;
+        position: relative;
         }
         .signature div::after {
-            content: "";
-            display: block;
-            margin-top: 20px;
-            border-top: 1px solid #000;
+        content: "";
+        display: block;
+        margin-top: 10px; /* Ajusta la distancia entre el texto y la línea */
+        border-top: 1px solid #000;
         }
         .signature div span {
-            position: absolute;
-            top: 30px; /* Ajustar para centrar */
-            font-size: 14px;
-            width: 100%;
-            text-align: left; /* Cambiado para alinear el texto a la izquierda */
+        position: absolute;
+        top: -10px; /* Ajusta para subir el texto sobre la línea */
+        font-size: 14px;
+        width: 100%;
+        text-align: center;
         }
         .subtitle {
             font-size: 18px;
