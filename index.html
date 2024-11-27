@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DELACASA - Recibo de leche</title>
+    <title>DELACASA - Recibo de leche - Desarrollo Lácteos de Acoyapa S.A</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -110,24 +110,43 @@
         </div>
     </div>
     <script>
-         // Imprimir automáticamente al cargar la página
-         window.onload = function() {
-            window.print(); // Abre el cuadro de diálogo de impresión del navegador
-        };
         // Obtener datos desde la URL
         const params = new URLSearchParams(window.location.search);
-        document.getElementById("idProduccion").innerText = params.get("idProduccion") || "SIN-ID";
-        document.getElementById("fecha").innerText = params.get("fecha") || "SIN-FECHA";
-        document.getElementById("recibeDe").innerText = params.get("recibeDe") || "____________";
-        document.getElementById("vehiculo").innerText = params.get("vehiculo") || "____________";
-        document.getElementById("volumenLeche").innerText = params.get("volumenLeche") || "____________";
-        document.getElementById("horaEntrega").innerText = params.get("horaEntrega") || "____________";
-        document.getElementById("horaDescargue").innerText = params.get("horaDescargue") || "____________";
-        document.getElementById("temperatura").innerText = params.get("temperatura") || "____________";
-        document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";
-        document.getElementById("entregadoPor").innerText = params.get("entregadoPor") || "____________";
-        document.getElementById("recibidoPor").innerText = params.get("recibidoPor") || "____________";
+        const idProduccion = params.get("idProduccion") || "SIN-ID";
+        const fecha = params.get("fecha") || "SIN-FECHA";
+        const recibeDe = params.get("recibeDe") || "____________";
+        const vehiculo = params.get("vehiculo") || "____________";
+        const volumenLeche = params.get("volumenLeche") || "____________";
+        const horaEntrega = params.get("horaEntrega") || "____________";
+        const horaDescargue = params.get("horaDescargue") || "____________";
+        const temperatura = params.get("temperatura") || "____________";
+        const observaciones = params.get("observaciones") || "____________";
+        const entregadoPor = params.get("entregadoPor") || "____________";
+        const recibidoPor = params.get("recibidoPor") || "____________";
+
+        // Asignar los valores al HTML
+        document.getElementById("idProduccion").innerText = idProduccion;
+        document.getElementById("fecha").innerText = fecha;
+        document.getElementById("recibeDe").innerText = recibeDe;
+        document.getElementById("vehiculo").innerText = vehiculo;
+        document.getElementById("volumenLeche").innerText = volumenLeche;
+        document.getElementById("horaEntrega").innerText = horaEntrega;
+        document.getElementById("horaDescargue").innerText = horaDescargue;
+        document.getElementById("temperatura").innerText = temperatura;
+        document.getElementById("observaciones").innerText = observaciones;
+        document.getElementById("entregadoPor").innerText = entregadoPor;
+        document.getElementById("recibidoPor").innerText = recibidoPor;
+
+        // Configurar el nombre del archivo PDF
+        const fileName = `${fecha}-${idProduccion}.pdf`;
+
+        // Abrir diálogo de impresión y configurar el nombre del archivo PDF
+        window.onload = function() {
+            const printPromise = window.print();
+            if (printPromise) {
+                console.log(`Archivo guardado como: ${fileName}`);
+            }
+        };
     </script>
 </body>
 </html>
-
