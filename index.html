@@ -51,20 +51,16 @@
         .signature div {
             text-align: center;
             width: 30%;
-            position: relative;
+        }
+        .signature div span {
+            display: block;
+            margin-top: 10px;
         }
         .signature div::after {
             content: "";
             display: block;
-            margin-top: 20px;
+            margin-top: 30px;
             border-top: 1px solid #000;
-        }
-        .signature div span {
-            position: absolute;
-            top: 30px; /* Ajustar para centrar */
-            font-size: 14px;
-            width: 100%;
-            text-align: center;
         }
         .subtitle {
             font-size: 18px;
@@ -82,6 +78,12 @@
             right: 6%;
             text-align: right;
             font-size: 12px;
+        }
+        .data-field {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -118,16 +120,25 @@
                 <td colspan="2"><strong>Observaciones:</strong> <span id="observaciones">____________</span></td>
             </tr>
         </table>
+        <!-- Nuevo campo para datos -->
+        <div class="data-field">
+            <span id="datosAdicionales">Datos: _______________________</span>
+        </div>
         <div class="signature">
             <div>
                 <span>ENTREGADO POR</span>
+                <br>
+                _______________________
             </div>
             <div>
                 <span>RECIBIDO POR</span>
+                <br>
+                _______________________
             </div>
         </div>
     </div>
     <script>
+        // Obtener datos desde la URL
         const params = new URLSearchParams(window.location.search);
         const idProduccion = params.get("idProduccion") || "SIN-ID";
         const fecha = params.get("fecha") || "SIN-FECHA";
@@ -141,8 +152,12 @@
         document.getElementById("horaDescargue").innerText = params.get("horaDescargue") || "____________";
         document.getElementById("temperatura").innerText = params.get("temperatura") || "____________";
         document.getElementById("observaciones").innerText = params.get("observaciones") || "____________";
+        document.getElementById("datosAdicionales").innerText = params.get("datosAdicionales") || "Datos: _______________________";
 
+        // Configurar el nombre del archivo para el guardado en PDF
         document.title = `Recibo de leche - ${fecha}-${idProduccion}`;
+
+        // Imprimir automáticamente al cargar la página
         window.onload = function() {
             window.print();
         };
